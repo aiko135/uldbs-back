@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.model;
 
 import com.penzasoft.uldbs.util.UuidJsonConverter;
+import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -33,15 +34,14 @@ import org.eclipse.persistence.annotations.Converter;
  * @author ktepin
  */
 @Entity
-@Table(name = "feedback")
+@Table(name = "feedback", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Feedback.findAll", query = "SELECT f FROM Feedback f"),
     @NamedQuery(name = "Feedback.findByGrade", query = "SELECT f FROM Feedback f WHERE f.grade = :grade"),
     @NamedQuery(name = "Feedback.findByFeedback", query = "SELECT f FROM Feedback f WHERE f.feedback = :feedback"),
     @NamedQuery(name = "Feedback.findByTimestamp", query = "SELECT f FROM Feedback f WHERE f.timestamp = :timestamp")})
-@Converter (converterClass = UuidJsonConverter.class, name = "uuidConverter") 
-public class Feedback implements Serializable {
+public class Feedback extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

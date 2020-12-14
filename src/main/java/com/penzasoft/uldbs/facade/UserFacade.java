@@ -24,14 +24,24 @@ public class UserFacade {
     
     public LoginResult doLogin(String login, String password){
             List<User> found = entityManager
-                .createQuery("SELECT u FROM User u WHERE u.email=:p_email", User.class)
-                .setParameter("p_email", login)
+                 .createQuery("SELECT u FROM User u WHERE u.email=:p_email", User.class)
+                 .setParameter("p_email", login)
                 .getResultList();
+            /* Нативным запросом 
+             List<User> found = entityManager
+                     .createNativeQuery("SELECT * FROM public.user u WHERE u.email = ?", User.class)
+                      .setParameter(1, login)
+                       .getResultList();
+            */
+             List<User> found2 = entityManager
+                 .createQuery("SELECT u FROM User u", User.class)
+                .getResultList();
+             
             if(found.isEmpty()){
                  return new LoginResult(false,"NotFound");
             }
             else{
-                return new LoginResult(true,found.get(0).getPass());
+                return new LoginResult(true, found.get(0).getEmail());
             }
            
     }

@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.model;
 
 import com.penzasoft.uldbs.util.UuidJsonConverter;
+import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -26,19 +27,20 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
 
 /**
  *
  * @author ktepin
  */
 @Entity
-@Table(name = "status_history")
+@Table(name = "status_history",  schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StatusHistory.findAll", query = "SELECT s FROM StatusHistory s"),
     @NamedQuery(name = "StatusHistory.findBySetupTimestamp", query = "SELECT s FROM StatusHistory s WHERE s.setupTimestamp = :setupTimestamp"),
     @NamedQuery(name = "StatusHistory.findByComment", query = "SELECT s FROM StatusHistory s WHERE s.comment = :comment")})
-public class StatusHistory implements Serializable {
+public class StatusHistory extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
      @Id

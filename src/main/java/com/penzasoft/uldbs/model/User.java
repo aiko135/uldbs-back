@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.model;
 
 import com.penzasoft.uldbs.util.UuidJsonConverter;
+import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,7 @@ import org.eclipse.persistence.annotations.Converter;
  * @author ktepin
  */
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
@@ -45,8 +46,8 @@ import org.eclipse.persistence.annotations.Converter;
     @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
     @NamedQuery(name = "User.findByBirthDate", query = "SELECT u FROM User u WHERE u.birthDate = :birthDate"),
     @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone")})
-@Converter (converterClass = UuidJsonConverter.class, name = "uuidConverter") 
-public class User implements Serializable {
+
+public class User extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.model;
 
 import com.penzasoft.uldbs.util.UuidJsonConverter;
+import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -33,10 +34,9 @@ import org.eclipse.persistence.annotations.Converter;
  * @author ktepin
  */
 @Entity
-@Table(name = "chat")
+@Table(name = "chat", schema = "public")
 @NamedQueries({@NamedQuery(name = "Chat.findAll", query = "SELECT c FROM Chat c")})
-@Converter (converterClass = UuidJsonConverter.class, name = "uuidConverter") 
-public class Chat implements Serializable {
+public class Chat extends AbstractEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)

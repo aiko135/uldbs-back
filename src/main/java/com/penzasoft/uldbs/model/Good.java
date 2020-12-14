@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.model;
 
 import com.penzasoft.uldbs.util.UuidJsonConverter;
+import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -35,7 +36,7 @@ import org.eclipse.persistence.annotations.Converter;
  * @author ktepin
  */
 @Entity
-@Table(name = "good")
+@Table(name = "good", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Good.findAll", query = "SELECT g FROM Good g"),
@@ -43,8 +44,8 @@ import org.eclipse.persistence.annotations.Converter;
     @NamedQuery(name = "Good.findByPrice", query = "SELECT g FROM Good g WHERE g.price = :price"),
     @NamedQuery(name = "Good.findByDescr", query = "SELECT g FROM Good g WHERE g.descr = :descr"),
     @NamedQuery(name = "Good.findByImgPath", query = "SELECT g FROM Good g WHERE g.imgPath = :imgPath")})
-@Converter (converterClass = UuidJsonConverter.class, name = "uuidConverter") 
-public class Good implements Serializable {
+
+public class Good extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
