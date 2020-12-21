@@ -5,12 +5,14 @@
  */
 package com.penzasoft.uldbs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
 import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -136,6 +138,8 @@ public class Good extends AbstractEntity implements Serializable {
         this.imgPath = imgPath;
     }
 
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<Feedback> getFeedbackList() {
         return feedbackList;
@@ -154,6 +158,8 @@ public class Good extends AbstractEntity implements Serializable {
         this.parametrList = parametrList;
     }
 
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<GoodRequest> getGoodRequestList() {
         return goodRequestList;

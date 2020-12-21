@@ -114,16 +114,16 @@ public class Feedback extends AbstractEntity implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public Good getGoodUuid() {
-        return goodUuid;
+    public UUID getGoodUuid() {
+        return goodUuid.getUuid();
     }
 
     public void setGoodUuid(Good goodUuid) {
         this.goodUuid = goodUuid;
     }
 
-    public User getUserUuid() {
-        return userUuid;
+    public UUID getUserUuid() {
+        return userUuid.getUuid();
     }
 
     public void setUserUuid(User userUuid) {

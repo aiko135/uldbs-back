@@ -86,16 +86,16 @@ public class ParametrValue extends AbstractEntity implements Serializable {
         this.value = value;
     }
 
-    public GoodRequest getGoodRequestUuid() {
-        return goodRequestUuid;
+    public UUID getGoodRequestUuid() {
+        return goodRequestUuid.getUuid();
     }
 
     public void setGoodRequestUuid(GoodRequest goodRequestUuid) {
         this.goodRequestUuid = goodRequestUuid;
     }
 
-    public Parametr getParametrUuid() {
-        return parametrUuid;
+    public UUID getParametrUuid() {
+        return parametrUuid.getUuid();
     }
 
     public void setParametrUuid(Parametr parametrUuid) {

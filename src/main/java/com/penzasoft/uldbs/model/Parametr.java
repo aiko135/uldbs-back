@@ -104,8 +104,8 @@ public class Parametr extends AbstractEntity implements Serializable {
         this.name = name;
     }
 
-    public Good getGoodUuid() {
-        return goodUuid;
+    public UUID getGoodUuid() {
+        return goodUuid.getUuid();
     }
 
     public void setGoodUuid(Good goodUuid) {

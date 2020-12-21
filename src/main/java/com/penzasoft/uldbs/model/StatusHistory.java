@@ -100,8 +100,8 @@ public class StatusHistory extends AbstractEntity implements Serializable {
         this.comment = comment;
     }
 
-    public Request getRequestUuid() {
-        return requestUuid;
+    public UUID getRequestUuid() {
+        return requestUuid.getUuid();
     }
 
     public void setRequestUuid(Request requestUuid) {

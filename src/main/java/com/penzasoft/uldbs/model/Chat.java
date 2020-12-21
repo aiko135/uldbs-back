@@ -68,16 +68,16 @@ public class Chat extends AbstractEntity implements Serializable {
         this.uuid = uuid;
     }
 
-    public User getClientUuid() {
-        return clientUuid;
+    public UUID getClientUuid() {
+        return clientUuid.getUuid();
     }
 
     public void setClientUuid(User clientUuid) {
         this.clientUuid = clientUuid;
     }
 
-    public User getManagerUuid() {
-        return managerUuid;
+    public UUID getManagerUuid() {
+        return managerUuid.getUuid();
     }
 
     public void setManagerUuid(User managerUuid) {

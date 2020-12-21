@@ -5,11 +5,13 @@
  */
 package com.penzasoft.uldbs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
 import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -84,6 +86,8 @@ public class Status extends AbstractEntity implements Serializable {
         this.name = name;
     }
 
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<StatusHistory> getStatusHistoryList() {
         return statusHistoryList;

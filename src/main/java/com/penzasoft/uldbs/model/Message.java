@@ -112,8 +112,8 @@ public class Message extends AbstractEntity implements Serializable {
         this.chatUuid = chatUuid;
     }
 
-    public User getUserUuid() {
-        return userUuid;
+    public UUID getUserUuid() {
+        return userUuid.getUuid();
     }
 
     public void setUserUuid(User userUuid) {
