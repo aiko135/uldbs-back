@@ -27,22 +27,12 @@ public class UserFacade {
                  .createQuery("SELECT u FROM User u WHERE u.email=:p_email", User.class)
                  .setParameter("p_email", login)
                 .getResultList();
-            /* Нативным запросом 
-             List<User> found = entityManager
-                     .createNativeQuery("SELECT * FROM public.user u WHERE u.email = ?", User.class)
-                      .setParameter(1, login)
-                       .getResultList();
-            */
-             List<User> found2 = entityManager
-                 .createQuery("SELECT u FROM User u", User.class)
-                .getResultList();
-             
-            if(found.isEmpty()){
-                 return new LoginResult(false,"NotFound");
+            
+            if(found.size() > 0 && found.get(0).getPass().equals( password)){
+                return new LoginResult(true,"token", found.get(0));
             }
             else{
-                return new LoginResult(true, found.get(0).getEmail());
+                 return new LoginResult(false,"NotFound",null);
             }
-           
     }
 }

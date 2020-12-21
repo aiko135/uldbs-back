@@ -66,7 +66,7 @@ public class Catalog extends AbstractEntity implements Serializable {
         this.name = name;
     }
 
-    public Object getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 

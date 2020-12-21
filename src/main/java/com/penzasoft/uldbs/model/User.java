@@ -5,19 +5,19 @@
  */
 package com.penzasoft.uldbs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
-import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,7 +29,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.eclipse.persistence.annotations.Convert;
-import org.eclipse.persistence.annotations.Converter;
 
 /**
  *
@@ -164,6 +163,8 @@ public class User extends AbstractEntity implements Serializable {
         this.phone = phone;
     }
 
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<Feedback> getFeedbackList() {
         return feedbackList;
@@ -173,6 +174,8 @@ public class User extends AbstractEntity implements Serializable {
         this.feedbackList = feedbackList;
     }
 
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<Request> getRequestList() {
         return requestList;
@@ -182,6 +185,8 @@ public class User extends AbstractEntity implements Serializable {
         this.requestList = requestList;
     }
 
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<Request> getRequestList1() {
         return requestList1;
@@ -191,6 +196,8 @@ public class User extends AbstractEntity implements Serializable {
         this.requestList1 = requestList1;
     }
 
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<Chat> getChatList() {
         return chatList;
@@ -199,7 +206,9 @@ public class User extends AbstractEntity implements Serializable {
     public void setChatList(List<Chat> chatList) {
         this.chatList = chatList;
     }
-
+    
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<Chat> getChatList1() {
         return chatList1;
@@ -208,7 +217,9 @@ public class User extends AbstractEntity implements Serializable {
     public void setChatList1(List<Chat> chatList1) {
         this.chatList1 = chatList1;
     }
-
+    
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<Message> getMessageList() {
         return messageList;

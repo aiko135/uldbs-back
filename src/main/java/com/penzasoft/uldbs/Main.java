@@ -7,6 +7,6 @@ public class Main{
   @GET
   @Path("echo")
   public String echo() {
-    return "rest service works!";
+    return "Reqeust works!";
   }
 }

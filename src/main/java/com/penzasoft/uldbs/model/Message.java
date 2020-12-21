@@ -104,8 +104,8 @@ public class Message extends AbstractEntity implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public Chat getChatUuid() {
-        return chatUuid;
+    public UUID getChatUuid() {
+        return chatUuid.getUuid();
     }
 
     public void setChatUuid(Chat chatUuid) {

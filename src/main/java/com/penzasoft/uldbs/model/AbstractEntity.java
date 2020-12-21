@@ -10,7 +10,9 @@ import javax.persistence.MappedSuperclass;
 import org.eclipse.persistence.annotations.Converter;
 
 /**
- *
+ * @JsonbTransient
+    @JsonIgnore
+    @XmlTransient
  * @author ktepin
  */
 @MappedSuperclass

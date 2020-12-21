@@ -30,10 +30,10 @@ public class UserService {
     @Path("doLogin")
     @Produces({MediaType.APPLICATION_JSON})
     public LoginResult doLogin(
-            @HeaderParam("login") String questid,
+            @HeaderParam("login") String login,
             @HeaderParam("pass") String password ){
         
-        return userFacade.doLogin(questid, password);
+        return userFacade.doLogin(login, password);
     }
     
 }

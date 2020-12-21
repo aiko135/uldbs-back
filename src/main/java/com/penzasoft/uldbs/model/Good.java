@@ -163,8 +163,8 @@ public class Good extends AbstractEntity implements Serializable {
         this.goodRequestList = goodRequestList;
     }
 
-    public Catalog getCatalogUuid() {
-        return catalogUuid;
+    public UUID getCatalogUuid() {
+        return  catalogUuid.getUuid();
     }
 
     public void setCatalogUuid(Catalog catalogUuid) {
