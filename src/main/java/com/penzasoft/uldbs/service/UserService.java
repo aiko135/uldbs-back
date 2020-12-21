@@ -6,9 +6,12 @@
 package com.penzasoft.uldbs.service;
 
 import com.penzasoft.uldbs.dto.LoginResult;
+import com.penzasoft.uldbs.dto.RegisterResult;
 import com.penzasoft.uldbs.facade.UserFacade;
+import com.penzasoft.uldbs.model.User;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -36,4 +39,11 @@ public class UserService {
         return userFacade.doLogin(login, password);
     }
     
+    @POST
+    @Path("register")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public RegisterResult register(User regdata){
+        return userFacade.register(regdata);
+    }
 }
