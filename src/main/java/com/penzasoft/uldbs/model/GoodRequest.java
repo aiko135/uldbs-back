@@ -81,16 +81,16 @@ public class GoodRequest extends AbstractEntity implements Serializable {
         this.parametrValueList = parametrValueList;
     }
 
-    public UUID getGoodUuid() {
-        return goodUuid.getUuid();
+    public String getGoodUuid() {
+        return goodUuid.getUuid().toString();
     }
 
     public void setGoodUuid(Good goodUuid) {
         this.goodUuid = goodUuid;
     }
 
-    public UUID getRequestUuid() {
-        return requestUuid.getUuid();
+    public String getRequestUuid() {
+        return requestUuid.getUuid().toString();
     }
 
     public void setRequestUuid(Request requestUuid) {

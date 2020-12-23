@@ -5,11 +5,13 @@
  */
 package com.penzasoft.uldbs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
 import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -67,23 +69,25 @@ public class Chat extends AbstractEntity implements Serializable {
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
-
-    public UUID getClientUuid() {
-        return clientUuid.getUuid();
+    
+    public User getClientUuid() {
+        return clientUuid;
     }
 
     public void setClientUuid(User clientUuid) {
         this.clientUuid = clientUuid;
     }
 
-    public UUID getManagerUuid() {
-        return managerUuid.getUuid();
+    public User getManagerUuid() {
+        return managerUuid;
     }
 
     public void setManagerUuid(User managerUuid) {
         this.managerUuid = managerUuid;
     }
 
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<Message> getMessageList() {
         return messageList;

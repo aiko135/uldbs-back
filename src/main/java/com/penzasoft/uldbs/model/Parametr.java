@@ -5,11 +5,13 @@
  */
 package com.penzasoft.uldbs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
 import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -104,14 +106,16 @@ public class Parametr extends AbstractEntity implements Serializable {
         this.name = name;
     }
 
-    public UUID getGoodUuid() {
-        return goodUuid.getUuid();
+    public String getGoodUuid() {
+        return goodUuid.getUuid().toString();
     }
 
     public void setGoodUuid(Good goodUuid) {
         this.goodUuid = goodUuid;
     }
 
+    @JsonbTransient
+    @JsonIgnore
     @XmlTransient
     public List<ParametrValue> getParametrValueList() {
         return parametrValueList;
