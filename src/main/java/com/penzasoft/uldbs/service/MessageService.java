@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -32,5 +33,15 @@ public class MessageService {
     @Produces({MediaType.APPLICATION_JSON})
     public List<Message> getMessagesForChat(@HeaderParam("chat") UUID chat){
         return messageFacade.getMessagesForChat(chat);
+    }
+    
+    @POST
+    @Path("postMessage")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Message postMessage(
+            @HeaderParam("userid") UUID userid,
+            @HeaderParam("chatid") UUID chatid,
+            @HeaderParam("text") String text){
+       return messageFacade.postMessage(userid, chatid, text);
     }
 }
