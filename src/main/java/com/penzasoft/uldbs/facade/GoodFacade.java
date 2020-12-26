@@ -5,7 +5,9 @@
  */
 package com.penzasoft.uldbs.facade;
 
+import com.penzasoft.uldbs.dto.FullGoodInfo;
 import com.penzasoft.uldbs.model.Chat;
+import com.penzasoft.uldbs.model.Feedback;
 import com.penzasoft.uldbs.model.Good;
 import com.penzasoft.uldbs.model.Message;
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+    import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
 /**
@@ -34,4 +36,37 @@ public class GoodFacade {
         q.setFirstResult(offset);
         return q.getResultList();
     }
-}
+    
+    public List<Good> getGoodsByPopularity(int limit, int offset){
+       return entityManager.createQuery(
+               "SELECT gg FROM Good gg GROUP BY gg.uuid ORDER BY COUNT(gg.feedbackList) DESC NULLS LAST")
+               .setMaxResults(limit - offset)
+               .setFirstResult(offset)
+               .getResultList();
+    }
+    
+    public List<Good> getGoodsByRequests(int limit, int offset){
+          return entityManager.createQuery(
+               "SELECT gg FROM Good gg GROUP BY gg.uuid ORDER BY COUNT(gg.goodRequestList) DESC")
+               .setMaxResults(limit - offset)
+               .setFirstResult(offset)
+               .getResultList();
+    }
+    
+    public FullGoodInfo getFullInfoForGood(UUID goodUuid, int feedback_limit, int feedback_offset){
+        FullGoodInfo result = new FullGoodInfo();
+        Good g = entityManager
+                .createQuery("SELECT gg FROM Good gg WHERE gg.uuid = :idd", Good.class)
+                .setParameter("idd", goodUuid )
+                .getSingleResult();
+        result.setGood(g);
+        List<Feedback> feedbacks = entityManager
+                .createQuery("SELECT ff FROM Feedback ff WHERE ff.goodUuid.uuid = :idd", Feedback.class)
+                .setMaxResults(feedback_limit - feedback_offset)
+                .setFirstResult(feedback_offset)
+                .setParameter("idd", goodUuid )
+                .getResultList();
+        result.setFeedbacks(feedbacks);
+        return result;
+    }
+}   
