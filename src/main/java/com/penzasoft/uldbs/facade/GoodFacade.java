@@ -12,6 +12,8 @@ import com.penzasoft.uldbs.model.Good;
 import com.penzasoft.uldbs.model.Message;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,6 +26,10 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class GoodFacade {
+    
+     private static final Logger logger = Logger.getLogger(GoodFacade.class.getName());
+    
+    
     @PersistenceContext(unitName = "testPU")
     private EntityManager entityManager;
         
@@ -68,5 +74,19 @@ public class GoodFacade {
                 .getResultList();
         result.setFeedbacks(feedbacks);
         return result;
+    }
+    
+    public Boolean createGood(Good good){
+        try{
+            good.setUuid(UUID.randomUUID());
+            entityManager.persist(good);
+            entityManager.flush();
+            return true;
+        }
+        catch(Exception e){
+            //result.setMessage(result.getMessage()+": "+e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage(),e);
+            return false;
+        }
     }
 }   

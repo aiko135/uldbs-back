@@ -75,4 +75,20 @@ public class UserFacade {
             return result;
         }
     }
+    
+    public List<User> getAllUsers(int limit, int offset){
+        return entityManager.createQuery(
+               "SELECT uu FROM User uu WHERE uu.role = 1", User.class)
+               .setMaxResults(limit - offset)
+               .setFirstResult(offset)
+               .getResultList();
+    }
+    
+    public List<User> getAllManagers(int limit, int offset){
+          return entityManager.createQuery(
+               "SELECT uu FROM User uu WHERE uu.role > 1", User.class)
+               .setMaxResults(limit - offset)
+               .setFirstResult(offset)
+               .getResultList();
+    }
 }

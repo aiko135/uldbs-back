@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -54,5 +56,13 @@ public class GoodService {
     @Produces({MediaType.APPLICATION_JSON})
      public FullGoodInfo getFullGoodInfo(@PathParam("good") UUID good){
         return goodFacade.getFullInfoForGood(good, 50, 0);
+    }
+     
+    @POST
+    @Path("createGood")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Boolean createGood(Good good){
+        return goodFacade.createGood(good);
     }
 }
