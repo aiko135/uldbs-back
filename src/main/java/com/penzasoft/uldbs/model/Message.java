@@ -105,7 +105,10 @@ public class Message extends AbstractEntity implements Serializable {
     }
 
     public String getChatUuid() {
-        return chatUuid.getUuid().toString();
+        if(chatUuid == null)
+            return "null";
+        else
+            return chatUuid.getUuid().toString();
     }
 
     public void setChatUuid(Chat chatUuid) {
@@ -113,7 +116,10 @@ public class Message extends AbstractEntity implements Serializable {
     }
 
     public String getUserUuid() {
-        return userUuid.getUuid().toString();
+        if(userUuid == null)
+            return "null";
+        else
+            return userUuid.getUuid().toString();
     }
 
     public void setUserUuid(User userUuid) {

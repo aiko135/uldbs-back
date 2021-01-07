@@ -5,11 +5,13 @@
  */
 package com.penzasoft.uldbs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
 import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -26,6 +28,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 
@@ -113,9 +116,12 @@ public class Feedback extends AbstractEntity implements Serializable {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-
+    
     public String getGoodUuid() {
-        return goodUuid.getUuid().toString();
+         if(goodUuid== null)
+            return "null";
+        else
+            return goodUuid.getUuid().toString();
     }
 
     public void setGoodUuid(Good goodUuid) {

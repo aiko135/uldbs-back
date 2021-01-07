@@ -82,7 +82,10 @@ public class GoodRequest extends AbstractEntity implements Serializable {
     }
 
     public String getGoodUuid() {
-        return goodUuid.getUuid().toString();
+        if(goodUuid == null)
+            return "null";
+        else
+            return goodUuid.getUuid().toString();
     }
 
     public void setGoodUuid(Good goodUuid) {
@@ -90,7 +93,10 @@ public class GoodRequest extends AbstractEntity implements Serializable {
     }
 
     public String getRequestUuid() {
-        return requestUuid.getUuid().toString();
+        if(requestUuid == null)
+            return "null";
+        else
+            return requestUuid.getUuid().toString();
     }
 
     public void setRequestUuid(Request requestUuid) {

@@ -87,7 +87,10 @@ public class ParametrValue extends AbstractEntity implements Serializable {
     }
 
     public String getGoodRequestUuid() {
-        return goodRequestUuid.getUuid().toString();
+        if(goodRequestUuid == null)
+            return "null";
+        else
+            return goodRequestUuid.getUuid().toString();
     }
 
     public void setGoodRequestUuid(GoodRequest goodRequestUuid) {
@@ -95,7 +98,10 @@ public class ParametrValue extends AbstractEntity implements Serializable {
     }
 
     public String getParametrUuid() {
-        return parametrUuid.getUuid().toString();
+        if(parametrUuid == null)
+            return "null";
+        else
+            return parametrUuid.getUuid().toString();
     }
 
     public void setParametrUuid(Parametr parametrUuid) {

@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.facade;
 
 import com.penzasoft.uldbs.dto.FullGoodInfo;
+import com.penzasoft.uldbs.model.Catalog;
 import com.penzasoft.uldbs.model.Chat;
 import com.penzasoft.uldbs.model.Feedback;
 import com.penzasoft.uldbs.model.Good;
@@ -34,13 +35,11 @@ public class GoodFacade {
     private EntityManager entityManager;
         
     public List<Good> getAllGoods(int limit, int offset){
-        limit = limit - 1;
-        CriteriaQuery<Good> cq = entityManager.getCriteriaBuilder().createQuery(Good.class);
-        cq.select(cq.from(Good.class));
-        TypedQuery<Good> q = entityManager.createQuery(cq);
-        q.setMaxResults(limit - offset + 1);
-        q.setFirstResult(offset);
-        return q.getResultList();
+          return entityManager.createQuery(
+               "SELECT gg FROM Good gg",Good.class)
+               .setMaxResults(limit - offset)
+               .setFirstResult(offset)
+               .getResultList();
     }
     
     public List<Good> getGoodsByPopularity(int limit, int offset){
@@ -76,9 +75,10 @@ public class GoodFacade {
         return result;
     }
     
-    public Boolean createGood(Good good){
+    public Boolean createGood(Good good, UUID catalog){
         try{
             good.setUuid(UUID.randomUUID());
+            good.setCatalogUuid(new Catalog(catalog));
             entityManager.persist(good);
             entityManager.flush();
             return true;

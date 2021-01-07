@@ -8,9 +8,13 @@ package com.penzasoft.uldbs.service;
 
 import com.penzasoft.uldbs.facade.FeedbackFacade;
 import com.penzasoft.uldbs.model.Feedback;
+import java.util.List;
+import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,8 +34,17 @@ public class FeedbackService {
     @Path("addFeedback")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Feedback getChatsByClientId(Feedback feedback){
-        return feedbackFacade.addFeedback(feedback);
+    public Boolean addFeedback(
+         @HeaderParam("user") UUID user,
+         @HeaderParam("good") UUID good,
+             Feedback feedback){
+        return feedbackFacade.addFeedback(feedback, user, good);
     }
     
+    @GET
+    @Path("getAllFeedbacks")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Feedback> getAllFeedbacks(){
+        return feedbackFacade.getAllFeedbacks(100, 0);
+    }
 }

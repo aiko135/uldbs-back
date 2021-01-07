@@ -38,7 +38,7 @@ public class MessageService {
     @POST
     @Path("postMessage")
     @Produces({MediaType.APPLICATION_JSON})
-    public Message postMessage(
+    public Boolean postMessage(
             @HeaderParam("userid") UUID userid,
             @HeaderParam("chatid") UUID chatid,
             @HeaderParam("text") String text){

@@ -11,6 +11,8 @@ import com.penzasoft.uldbs.model.User;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +27,8 @@ public class MessageFacade {
     @PersistenceContext(unitName = "testPU")
     private EntityManager entityManager;
     
+     private static final Logger logger = Logger.getLogger(MessageFacade.class.getName());
+    
     public List<Message> getMessagesForChat(UUID chat){
         return entityManager
                 .createQuery("SELECT mes FROM Message mes WHERE mes.chatUuid.uuid = :mess_p", Message.class)
@@ -32,27 +36,31 @@ public class MessageFacade {
                 .getResultList();
     }
     
-    public Message postMessage(UUID userid, UUID chatid, String text){
-        Message m = new Message();
-        UUID uuid = UUID.randomUUID();
-        m.setUuid(uuid);
-        m.setText(text);
-        m.setTimestamp(new Date(0));
+    public Boolean postMessage(UUID userid, UUID chatid, String text){
+        try{
+            Message m = new Message();
+            UUID uuid = UUID.randomUUID();
+            m.setUuid(uuid);
+            m.setText(text);
+            m.setTimestamp(new Date(0));
         
-        User u = new User();
-        u.setUuid(userid);
-        m.setUserUuid(u);
+            User u = new User();
+            u.setUuid(userid);
+            m.setUserUuid(u);
         
-        Chat c = new Chat();
-        c.setUuid(chatid);
-        m.setChatUuid(c);
+            Chat c = new Chat();
+            c.setUuid(chatid);
+            m.setChatUuid(c);
         
-        entityManager.persist(m);
-        entityManager.flush();
-        return entityManager
-                .createQuery("SELECT mm FROM Message mm WHERE mm.uuid = :mid", Message.class)
-                .setParameter("mid", uuid)
-                .getSingleResult();
+            entityManager.persist(m);
+            entityManager.flush();
+            return true;
+        }
+        catch(Exception e){
+            //result.setMessage(result.getMessage()+": "+e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage(),e);
+            return false;
+        }
         
     }
 }

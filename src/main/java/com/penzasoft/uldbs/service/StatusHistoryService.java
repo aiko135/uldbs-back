@@ -9,9 +9,11 @@ import com.penzasoft.uldbs.facade.RequestFacade;
 import com.penzasoft.uldbs.facade.StatusHistoryFacade;
 import com.penzasoft.uldbs.model.Good;
 import com.penzasoft.uldbs.model.StatusHistory;
+import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -29,10 +31,12 @@ public class StatusHistoryService {
     
     @POST
     @Path("createStatusHistory")
-    @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Boolean createSH(StatusHistory sh){
-        return shFacade.createStatusHistory(sh);
+    public Boolean createSH(  
+            @HeaderParam("request") UUID request,
+            @HeaderParam("status") UUID status,
+            @HeaderParam("message") String message){
+        return shFacade.createStatusHistory(request, status, message);
     }
      
 }

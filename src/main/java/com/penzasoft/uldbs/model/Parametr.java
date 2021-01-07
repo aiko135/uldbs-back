@@ -107,7 +107,10 @@ public class Parametr extends AbstractEntity implements Serializable {
     }
 
     public String getGoodUuid() {
-        return goodUuid.getUuid().toString();
+        if(goodUuid == null)
+            return "null";
+        else     
+            return goodUuid.getUuid().toString();
     }
 
     public void setGoodUuid(Good goodUuid) {

@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -32,7 +33,7 @@ public class GoodService {
     
     @GET
     @Path("getGoods")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_JSON})
     public List<Good> getMessagesForChat(){
         return goodFacade.getAllGoods(100, 0);
     }
@@ -62,7 +63,7 @@ public class GoodService {
     @Path("createGood")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Boolean createGood(Good good){
-        return goodFacade.createGood(good);
+    public Boolean createGood(@HeaderParam("catalog") UUID catalogId, Good good){
+        return goodFacade.createGood(good, catalogId);
     }
 }

@@ -101,7 +101,10 @@ public class StatusHistory extends AbstractEntity implements Serializable {
     }
 
     public String getRequestUuid() {
-        return requestUuid.getUuid().toString();
+        if(requestUuid == null)
+            return "null";
+        else
+            return requestUuid.getUuid().toString();
     }
 
     public void setRequestUuid(Request requestUuid) {
@@ -109,7 +112,10 @@ public class StatusHistory extends AbstractEntity implements Serializable {
     }
 
     public String getStatusUuid() {
-        return statusUuid.getUuid().toString();
+        if(statusUuid == null)
+            return "null";
+        else
+            return statusUuid.getUuid().toString();
     }
 
     public void setStatusUuid(Status statusUuid) {

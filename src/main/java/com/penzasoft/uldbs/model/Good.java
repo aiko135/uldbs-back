@@ -170,7 +170,10 @@ public class Good extends AbstractEntity implements Serializable {
     }
 
     public String getCatalogUuid() {
-        return  catalogUuid.getUuid().toString();
+        if(catalogUuid == null)
+            return "null";
+        else
+            return  catalogUuid.getUuid().toString();     
     }
 
     public void setCatalogUuid(Catalog catalogUuid) {
