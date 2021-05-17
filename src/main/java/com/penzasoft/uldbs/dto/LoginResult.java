@@ -14,11 +14,13 @@ import com.penzasoft.uldbs.model.User;
 public class LoginResult {
     
     private Boolean result;
+    private String error;
     private String token;
     private User user;
 
-    public LoginResult(Boolean result, String token, User user) {
+    public LoginResult(Boolean result, String error, String token, User user) {
         this.result = result;
+        this.error = error;
         this.token = token;
         this.user = user;
     }
@@ -31,7 +33,13 @@ public class LoginResult {
         this.user = user;
     }
 
-    
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
     
     public Boolean getResult() {
         return result;

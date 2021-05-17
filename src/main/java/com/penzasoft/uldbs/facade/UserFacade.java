@@ -36,10 +36,10 @@ public class UserFacade {
                 .getResultList();
             
             if(found.size() > 0 && found.get(0).getPass().equals( password)){
-                return new LoginResult(true,"token", found.get(0));
+                return new LoginResult(true,"OK","token", found.get(0));
             }
             else{
-                 return new LoginResult(false,"NotFound",null);
+                 return new LoginResult(false,"NotFound", "",null);
             }
     }
     

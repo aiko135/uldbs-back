@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.penzasoft.uldbs.util.DateJsonAdapter;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
 import java.io.Serializable;
 import java.util.Date;
@@ -74,6 +75,7 @@ public class User extends AbstractEntity implements Serializable {
     @Column(name = "name")
     private String name;
     @Column(name = "birth_date")
+    @JsonbTypeAdapter(DateJsonAdapter.class)
     @Temporal(TemporalType.DATE)
     private Date birthDate;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
