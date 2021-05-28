@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.model;
 
 import com.penzasoft.uldbs.util.UuidJsonConverter;
+import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -33,14 +34,14 @@ import org.eclipse.persistence.annotations.Converter;
  * @author ktepin
  */
 @Entity
-@Table(name = "message")
+@Table(name = "message", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m"),
     @NamedQuery(name = "Message.findByText", query = "SELECT m FROM Message m WHERE m.text = :text"),
     @NamedQuery(name = "Message.findByTimestamp", query = "SELECT m FROM Message m WHERE m.timestamp = :timestamp")})
-@Converter (converterClass = UuidJsonConverter.class, name = "uuidConverter") 
-public class Message implements Serializable {
+
+public class Message extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -103,16 +104,22 @@ public class Message implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public Chat getChatUuid() {
-        return chatUuid;
+    public String getChatUuid() {
+        if(chatUuid == null)
+            return "null";
+        else
+            return chatUuid.getUuid().toString();
     }
 
     public void setChatUuid(Chat chatUuid) {
         this.chatUuid = chatUuid;
     }
 
-    public User getUserUuid() {
-        return userUuid;
+    public String getUserUuid() {
+        if(userUuid == null)
+            return "null";
+        else
+            return userUuid.getUuid().toString();
     }
 
     public void setUserUuid(User userUuid) {

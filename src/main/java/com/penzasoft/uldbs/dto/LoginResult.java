@@ -5,6 +5,8 @@
  */
 package com.penzasoft.uldbs.dto;
 
+import com.penzasoft.uldbs.model.User;
+
 /**
  *
  * @author ktepin
@@ -12,11 +14,31 @@ package com.penzasoft.uldbs.dto;
 public class LoginResult {
     
     private Boolean result;
+    private String error;
     private String token;
+    private User user;
 
-    public LoginResult(Boolean result, String token) {
+    public LoginResult(Boolean result, String error, String token, User user) {
         this.result = result;
+        this.error = error;
         this.token = token;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
     
     public Boolean getResult() {

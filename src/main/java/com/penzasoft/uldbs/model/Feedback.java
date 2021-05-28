@@ -5,10 +5,13 @@
  */
 package com.penzasoft.uldbs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
+import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -25,6 +28,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 
@@ -33,15 +37,14 @@ import org.eclipse.persistence.annotations.Converter;
  * @author ktepin
  */
 @Entity
-@Table(name = "feedback")
+@Table(name = "feedback", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Feedback.findAll", query = "SELECT f FROM Feedback f"),
     @NamedQuery(name = "Feedback.findByGrade", query = "SELECT f FROM Feedback f WHERE f.grade = :grade"),
     @NamedQuery(name = "Feedback.findByFeedback", query = "SELECT f FROM Feedback f WHERE f.feedback = :feedback"),
     @NamedQuery(name = "Feedback.findByTimestamp", query = "SELECT f FROM Feedback f WHERE f.timestamp = :timestamp")})
-@Converter (converterClass = UuidJsonConverter.class, name = "uuidConverter") 
-public class Feedback implements Serializable {
+public class Feedback extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -113,9 +116,12 @@ public class Feedback implements Serializable {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-
-    public Good getGoodUuid() {
-        return goodUuid;
+    
+    public String getGoodUuid() {
+         if(goodUuid== null)
+            return "null";
+        else
+            return goodUuid.getUuid().toString();
     }
 
     public void setGoodUuid(Good goodUuid) {

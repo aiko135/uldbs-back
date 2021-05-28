@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.model;
 
 import com.penzasoft.uldbs.util.UuidJsonConverter;
+import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbTypeAdapter;
@@ -30,13 +31,13 @@ import org.eclipse.persistence.annotations.Converter;
  * @author ktepin
  */
 @Entity
-@Table(name = "parametr_value")
+@Table(name = "parametr_value", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ParametrValue.findAll", query = "SELECT p FROM ParametrValue p"),
     @NamedQuery(name = "ParametrValue.findByValue", query = "SELECT p FROM ParametrValue p WHERE p.value = :value")})
-@Converter (converterClass = UuidJsonConverter.class, name = "uuidConverter") 
-public class ParametrValue implements Serializable {
+ 
+public class ParametrValue extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -85,16 +86,22 @@ public class ParametrValue implements Serializable {
         this.value = value;
     }
 
-    public GoodRequest getGoodRequestUuid() {
-        return goodRequestUuid;
+    public String getGoodRequestUuid() {
+        if(goodRequestUuid == null)
+            return "null";
+        else
+            return goodRequestUuid.getUuid().toString();
     }
 
     public void setGoodRequestUuid(GoodRequest goodRequestUuid) {
         this.goodRequestUuid = goodRequestUuid;
     }
 
-    public Parametr getParametrUuid() {
-        return parametrUuid;
+    public String getParametrUuid() {
+        if(parametrUuid == null)
+            return "null";
+        else
+            return parametrUuid.getUuid().toString();
     }
 
     public void setParametrUuid(Parametr parametrUuid) {

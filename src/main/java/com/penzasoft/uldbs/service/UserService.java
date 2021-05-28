@@ -6,9 +6,14 @@
 package com.penzasoft.uldbs.service;
 
 import com.penzasoft.uldbs.dto.LoginResult;
+import com.penzasoft.uldbs.dto.RegisterResult;
 import com.penzasoft.uldbs.facade.UserFacade;
+import com.penzasoft.uldbs.model.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -30,10 +35,31 @@ public class UserService {
     @Path("doLogin")
     @Produces({MediaType.APPLICATION_JSON})
     public LoginResult doLogin(
-            @HeaderParam("login") String questid,
+            @HeaderParam("login") String login,
             @HeaderParam("pass") String password ){
         
-        return userFacade.doLogin(questid, password);
+        return userFacade.doLogin(login, password);
     }
     
+    @POST
+    @Path("register")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public RegisterResult register(User regdata){
+        return userFacade.register(regdata);
+    }
+    
+    @GET
+    @Path("getAllUsers")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<User> getAllUsers(){
+        return userFacade.getAllUsers(100, 0);
+    }
+    
+    @GET
+    @Path("getAllManagers")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<User> getAllManagers(){
+        return userFacade.getAllManagers(100, 0);
+    }
 }

@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.model;
 
 import com.penzasoft.uldbs.util.UuidJsonConverter;
+import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -33,12 +34,12 @@ import org.eclipse.persistence.annotations.Converter;
  * @author ktepin
  */
 @Entity
-@Table(name = "good_request")
+@Table(name = "good_request", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GoodRequest.findAll", query = "SELECT g FROM GoodRequest g")})
-@Converter (converterClass = UuidJsonConverter.class, name = "uuidConverter") 
-public class GoodRequest implements Serializable {
+
+public class GoodRequest extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -80,16 +81,22 @@ public class GoodRequest implements Serializable {
         this.parametrValueList = parametrValueList;
     }
 
-    public Good getGoodUuid() {
-        return goodUuid;
+    public String getGoodUuid() {
+        if(goodUuid == null)
+            return "null";
+        else
+            return goodUuid.getUuid().toString();
     }
 
     public void setGoodUuid(Good goodUuid) {
         this.goodUuid = goodUuid;
     }
 
-    public Request getRequestUuid() {
-        return requestUuid;
+    public String getRequestUuid() {
+        if(requestUuid == null)
+            return "null";
+        else
+            return requestUuid.getUuid().toString();
     }
 
     public void setRequestUuid(Request requestUuid) {
