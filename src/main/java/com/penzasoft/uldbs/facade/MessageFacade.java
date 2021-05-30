@@ -46,11 +46,11 @@ public class MessageFacade {
         
             User u = new User();
             u.setUuid(userid);
-            m.setUserUuid(u);
+            m.setUser(u);
         
             Chat c = new Chat();
             c.setUuid(chatid);
-            m.setChatUuid(c);
+            m.setChat(c);
         
             entityManager.persist(m);
             entityManager.flush();

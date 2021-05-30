@@ -61,7 +61,7 @@ public class Request extends AbstractEntity implements Serializable {
     @JoinColumn(name = "manager_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
     private User manager;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "requestUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "request")
     private List<GoodRequest> goodRequestList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "request")
     private List<StatusHistory> statusHistoryList;

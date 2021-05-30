@@ -76,7 +76,7 @@ public class Good extends AbstractEntity implements Serializable {
     private String imgPath;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "good")
     private List<Feedback> feedbackList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goodUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "good")
     private List<Parametr> parametrList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "good")
     private List<GoodRequest> goodRequestList;

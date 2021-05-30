@@ -29,8 +29,8 @@ public class FeedbackFacade {
     
     public Boolean addFeedback(Feedback feedback, UUID user, UUID good){
         feedback.setUuid(UUID.randomUUID());
-        feedback.setUserUuid(new User(user));
-        feedback.setGoodUuid(new Good(good));
+        feedback.setUser(new User(user));
+        feedback.setGood(new Good(good));
          try{
             entityManager.persist(feedback);
             entityManager.flush();

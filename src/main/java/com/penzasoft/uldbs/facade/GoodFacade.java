@@ -78,7 +78,7 @@ public class GoodFacade {
     public Boolean createGood(Good good, UUID catalog){
         try{
             good.setUuid(UUID.randomUUID());
-            good.setCatalogUuid(new Catalog(catalog));
+            good.setCatalog(new Catalog(catalog));
             entityManager.persist(good);
             entityManager.flush();
             return true;

@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,6 +29,8 @@ public class RequestFacade {
     private static final Logger logger = Logger.getLogger(MessageFacade.class.getName());
     
     private static String FINAL_STATUS_UUID = "ad631ed1-a650-4f9c-bfa1-70b84c6f0d10";
+    private static Integer MANAGER_ROLE_CODE = 2;
+    
     private UUID getUuidOfFinalStatus(){
         return UUID.fromString(FINAL_STATUS_UUID);
          // TODO запрос в бд и сохранение в Синглтон
@@ -41,9 +44,20 @@ public class RequestFacade {
             User u = entityManager.find(User.class, request.getUserUuid());
             if(u == null)
                 return false;
-            new_req.setClientUuid(u);
+            new_req.setClient(u);
             
             new_req.setPaymentData(request.getPaymentData());
+            
+            //Поиск наименее загруженного менеджера
+            //DATABASE FUNCTION
+            Query q = entityManager.createNativeQuery(
+            "select * from getfreemanager(?::integer,?::uuid);"
+            );
+            q.setParameter(1, MANAGER_ROLE_CODE);
+            q.setParameter(2, FINAL_STATUS_UUID);
+           
+            String freeManagerUuid = q.getSingleResult().toString();
+             int i = 0;      
             return true;
         }
             catch(Exception e){

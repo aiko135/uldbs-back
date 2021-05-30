@@ -7,6 +7,7 @@ package com.penzasoft.uldbs.dto;
 
 import com.penzasoft.uldbs.model.Good;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbTypeAdapter;
@@ -15,10 +16,11 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  *
  * @author ktepin
  */
-public class UsersRequest {
+public class UsersRequest implements Serializable {
     
     @JsonbTypeAdapter(UuidJsonConverter.class)
-    private UUID user_uuid;
+    private UUID userUuid;
+    
     private String payment_data;
     private List<Good> goods;
 
@@ -26,17 +28,17 @@ public class UsersRequest {
     }
 
     public UsersRequest(UUID user_uuid, String payment_data, List<Good> goods) {
-        this.user_uuid = user_uuid;
+        this.userUuid = user_uuid;
         this.payment_data = payment_data;
         this.goods = goods;
     }
     
     public UUID getUserUuid() {
-        return user_uuid;
+        return userUuid;
     }
 
     public void setUserUuid(UUID user_uuid) {
-        this.user_uuid = user_uuid;
+        this.userUuid = user_uuid;
     }
 
     public String getPaymentData() {

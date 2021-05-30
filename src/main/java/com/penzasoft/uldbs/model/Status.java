@@ -59,7 +59,7 @@ public class Status extends AbstractEntity implements Serializable {
     @Column(name = "is_terminal")
     private short isTerminal;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "statusUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "status")
     private List<StatusHistory> statusHistoryList;
 
     public Status() {
