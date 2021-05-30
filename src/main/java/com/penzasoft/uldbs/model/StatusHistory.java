@@ -111,11 +111,11 @@ public class StatusHistory extends AbstractEntity implements Serializable {
         this.request = requestUuid;
     }
 
-    public String getStatus() {
-        if(status == null)
-            return "null";
-        else
-            return status.getUuid().toString();
+    public Status getStatus() {
+//        if(status == null)
+//            return "null";
+//        else
+            return status;
     }
 
     public void setStatus(Status statusUuid) {

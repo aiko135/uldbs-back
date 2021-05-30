@@ -81,11 +81,11 @@ public class GoodRequest extends AbstractEntity implements Serializable {
         this.parametrValueList = parametrValueList;
     }
 
-    public String getGood() {
-        if(good == null)
-            return "null";
-        else
-            return good.getUuid().toString();
+    public Good getGood() {
+//        if(good == null)
+//            return "null";
+//        else
+            return good;
     }
 
     public void setGood(Good goodUuid) {

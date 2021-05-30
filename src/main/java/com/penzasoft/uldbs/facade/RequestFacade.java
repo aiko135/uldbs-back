@@ -5,12 +5,15 @@
  */
 package com.penzasoft.uldbs.facade;
 
-import com.penzasoft.uldbs.dto.UsersRequest;
+import com.penzasoft.uldbs.dto.MyRequestDto;
+import com.penzasoft.uldbs.dto.UsersRequestDto;
 import com.penzasoft.uldbs.model.GoodRequest;
 import com.penzasoft.uldbs.model.Request;
 import com.penzasoft.uldbs.model.Status;
 import com.penzasoft.uldbs.model.StatusHistory;
 import com.penzasoft.uldbs.model.User;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -40,7 +43,7 @@ public class RequestFacade {
          // TODO запрос в бд и сохранение в Синглтон
     }
     
-    public Boolean postRequest(UsersRequest request){
+    public Boolean postRequest(UsersRequestDto request){
         try{
             if(request.getGoods().size() < 1)
                 return false;
@@ -99,6 +102,31 @@ public class RequestFacade {
             logger.log(Level.SEVERE, e.getMessage(),e);
             return false;
         }
+    }
+    
+    public List<MyRequestDto> getMyRequests(UUID user){
+        List<Request> myReqs = entityManager
+               .createQuery("SELECT rr FROM Request rr WHERE rr.client.uuid = :clientUuid", Request.class)
+               .setParameter("clientUuid", user)
+               .getResultList();
+        
+        ArrayList<MyRequestDto> dtoList = new ArrayList<MyRequestDto>();
+        
+        for(int i=0; i<myReqs.size(); i++){
+            MyRequestDto dto = new MyRequestDto();
+            Request old = myReqs.get(i);
+                    
+            dto.setRequestUuid( old.getUuid() );
+            dto.setStatusHistoryList( old.getStatusHistoryList() );
+            dto.setManagerUuid(old.getManager().getUuid());
+            dto.setManagerPhone(old.getManager().getPhone());
+            dto.setManagerEmail(old.getManager().getEmail());
+            dto.setGoodRequestList(old.getGoodRequestList());
+            dto.setManagerName(old.getManager().getName());
+            
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
     
     public List<Request> getAllUnfinishedRequests(){

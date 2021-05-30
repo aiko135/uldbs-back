@@ -5,8 +5,8 @@
  */
 package com.penzasoft.uldbs.facade;
 
-import com.penzasoft.uldbs.dto.LoginResult;
-import com.penzasoft.uldbs.dto.RegisterResult;
+import com.penzasoft.uldbs.dto.LoginResultDto;
+import com.penzasoft.uldbs.dto.RegisterResultDto;
 import com.penzasoft.uldbs.model.User;
 import java.util.List;
 import java.util.UUID;
@@ -29,22 +29,22 @@ public class UserFacade {
     @PersistenceContext(unitName = "testPU")
     private EntityManager entityManager;
     
-    public LoginResult doLogin(String login, String password){
+    public LoginResultDto doLogin(String login, String password){
             List<User> found = entityManager
                  .createQuery("SELECT u FROM User u WHERE u.email = :p_email", User.class)
                  .setParameter("p_email", login)
                 .getResultList();
             
             if(found.size() > 0 && found.get(0).getPass().equals( password)){
-                return new LoginResult(true,"OK","token", found.get(0));
+                return new LoginResultDto(true,"OK","token", found.get(0));
             }
             else{
-                 return new LoginResult(false,"NotFound", "",null);
+                 return new LoginResultDto(false,"NotFound", "",null);
             }
     }
     
-    public RegisterResult register(User regdata){
-        RegisterResult result = new RegisterResult(false,"Server error",null);
+    public RegisterResultDto register(User regdata){
+        RegisterResultDto result = new RegisterResultDto(false,"Server error",null);
         try{
             Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM public.user u2 WHERE u2.email = ?");
             query.setParameter(1, regdata.getEmail());

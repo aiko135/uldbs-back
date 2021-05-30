@@ -16,7 +16,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  *
  * @author ktepin
  */
-public class UsersRequest implements Serializable {
+public class UsersRequestDto implements Serializable {
     
     @JsonbTypeAdapter(UuidJsonConverter.class)
     private UUID userUuid;
@@ -24,10 +24,10 @@ public class UsersRequest implements Serializable {
     private String payment_data;
     private List<Good> goods;
 
-    public UsersRequest() {
+    public UsersRequestDto() {
     }
 
-    public UsersRequest(UUID user_uuid, String payment_data, List<Good> goods) {
+    public UsersRequestDto(UUID user_uuid, String payment_data, List<Good> goods) {
         this.userUuid = user_uuid;
         this.payment_data = payment_data;
         this.goods = goods;
