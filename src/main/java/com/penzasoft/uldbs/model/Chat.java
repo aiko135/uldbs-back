@@ -48,11 +48,11 @@ public class Chat extends AbstractEntity implements Serializable {
     private UUID uuid;
     @JoinColumn(name = "client_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private User clientUuid;
+    private User client;
     @JoinColumn(name = "manager_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private User managerUuid;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "chatUuid")
+    private User manager;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "chat")
     private List<Message> messageList;
 
     public Chat() {
@@ -70,20 +70,20 @@ public class Chat extends AbstractEntity implements Serializable {
         this.uuid = uuid;
     }
     
-    public User getClientUuid() {
-        return clientUuid;
+    public User getClient() {
+        return client;
     }
 
-    public void setClientUuid(User clientUuid) {
-        this.clientUuid = clientUuid;
+    public void setClient(User clientUuid) {
+        this.client = clientUuid;
     }
 
-    public User getManagerUuid() {
-        return managerUuid;
+    public User getManager() {
+        return manager;
     }
 
-    public void setManagerUuid(User managerUuid) {
-        this.managerUuid = managerUuid;
+    public void setManager(User managerUuid) {
+        this.manager = managerUuid;
     }
 
     @JsonbTransient

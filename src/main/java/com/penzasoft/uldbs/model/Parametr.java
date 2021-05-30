@@ -65,8 +65,8 @@ public class Parametr extends AbstractEntity implements Serializable {
     private String name;
     @JoinColumn(name = "good_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private Good goodUuid;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parametrUuid")
+    private Good good;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parametr")
     private List<ParametrValue> parametrValueList;
 
     public Parametr() {
@@ -106,15 +106,15 @@ public class Parametr extends AbstractEntity implements Serializable {
         this.name = name;
     }
 
-    public String getGoodUuid() {
-        if(goodUuid == null)
+    public String getGood() {
+        if(good == null)
             return "null";
         else     
-            return goodUuid.getUuid().toString();
+            return good.getUuid().toString();
     }
 
-    public void setGoodUuid(Good goodUuid) {
-        this.goodUuid = goodUuid;
+    public void setGood(Good goodUuid) {
+        this.good = goodUuid;
     }
 
     @JsonbTransient

@@ -51,7 +51,7 @@ public class Catalog extends AbstractEntity implements Serializable {
     @Size(min = 1, max = 128)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "catalogUuid")
+    @OneToMany(mappedBy = "catalog")
     private List<Good> goodList;
 
     public Catalog() {

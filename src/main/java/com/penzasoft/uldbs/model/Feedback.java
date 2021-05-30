@@ -67,10 +67,10 @@ public class Feedback extends AbstractEntity implements Serializable {
     private Date timestamp;
     @JoinColumn(name = "good_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private Good goodUuid;
+    private Good good;
     @JoinColumn(name = "user_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private User userUuid;
+    private User user;
 
     public Feedback() {
     }
@@ -117,23 +117,23 @@ public class Feedback extends AbstractEntity implements Serializable {
         this.timestamp = timestamp;
     }
     
-    public String getGoodUuid() {
-         if(goodUuid== null)
+    public String getGood() {
+         if(good== null)
             return "null";
         else
-            return goodUuid.getUuid().toString();
+            return good.getUuid().toString();
     }
 
-    public void setGoodUuid(Good goodUuid) {
-        this.goodUuid = goodUuid;
+    public void setGood(Good goodUuid) {
+        this.good = goodUuid;
     }
 
-    public User getUserUuid() {
-        return userUuid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserUuid(User userUuid) {
-        this.userUuid = userUuid;
+    public void setUser(User userUuid) {
+        this.user = userUuid;
     }
 
     @Override

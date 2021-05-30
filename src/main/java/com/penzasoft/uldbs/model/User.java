@@ -82,17 +82,17 @@ public class User extends AbstractEntity implements Serializable {
     @Size(max = 11)
     @Column(name = "phone")
     private String phone;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Feedback> feedbackList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
     private List<Request> requestList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "managerUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "manager")
     private List<Request> requestList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
     private List<Chat> chatList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "managerUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "manager")
     private List<Chat> chatList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Message> messageList;
 
     public User() {

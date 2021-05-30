@@ -55,7 +55,22 @@ public class Status extends AbstractEntity implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "statusUuid")
+    @NotNull
+    @Column(name = "is_terminal")
+    private short isTerminal;
+    @NotNull
+    @Column(name = "is_initial")
+    private short isInitial;
+
+    public short getIsInitial() {
+        return isInitial;
+    }
+
+    public void setIsInitial(short isInitial) {
+        this.isInitial = isInitial;
+    }
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "status")
     private List<StatusHistory> statusHistoryList;
 
     public Status() {
@@ -120,6 +135,14 @@ public class Status extends AbstractEntity implements Serializable {
     @Override
     public String toString() {
         return "com.penzasoft.uldbs.model.Status[ uuid=" + uuid + " ]";
+    }
+
+    public short getIsTerminal() {
+        return isTerminal;
+    }
+
+    public void setIsTerminal(short isTerminal) {
+        this.isTerminal = isTerminal;
     }
     
 }

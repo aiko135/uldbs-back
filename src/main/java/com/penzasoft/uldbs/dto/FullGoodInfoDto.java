@@ -13,14 +13,14 @@ import java.util.List;
  *
  * @author ktepin
  */
-public class FullGoodInfo {
+public class FullGoodInfoDto {
     private Good good;
     private List<Feedback> feedbacks;
 
-    public FullGoodInfo() {
+    public FullGoodInfoDto() {
     }
 
-    public FullGoodInfo(Good good, List<Feedback> feedbacks) {
+    public FullGoodInfoDto(Good good, List<Feedback> feedbacks) {
         this.good = good;
         this.feedbacks = feedbacks;
     }

@@ -31,7 +31,7 @@ public class MessageFacade {
     
     public List<Message> getMessagesForChat(UUID chat){
         return entityManager
-                .createQuery("SELECT mes FROM Message mes WHERE mes.chatUuid.uuid = :mess_p", Message.class)
+                .createQuery("SELECT mes FROM Message mes WHERE mes.chat.uuid = :mess_p", Message.class)
                 .setParameter("mess_p", chat)
                 .getResultList();
     }
@@ -46,11 +46,11 @@ public class MessageFacade {
         
             User u = new User();
             u.setUuid(userid);
-            m.setUserUuid(u);
+            m.setUser(u);
         
             Chat c = new Chat();
             c.setUuid(chatid);
-            m.setChatUuid(c);
+            m.setChat(c);
         
             entityManager.persist(m);
             entityManager.flush();

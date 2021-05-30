@@ -33,8 +33,8 @@ public class StatusHistoryFacade {
             StatusHistory sh = new StatusHistory();
             sh.setUuid(UUID.randomUUID());
             sh.setSetupTimestamp(new Date());
-            sh.setRequestUuid(new Request(request));
-            sh.setStatusUuid(new Status(status));
+            sh.setRequest(new Request(request));
+            sh.setStatus(new Status(status));
             if(!(message.equals("null")))
                 sh.setComment(message);
             entityManager.persist(sh);

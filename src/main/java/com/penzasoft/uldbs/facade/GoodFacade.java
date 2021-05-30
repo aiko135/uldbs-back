@@ -5,7 +5,7 @@
  */
 package com.penzasoft.uldbs.facade;
 
-import com.penzasoft.uldbs.dto.FullGoodInfo;
+import com.penzasoft.uldbs.dto.FullGoodInfoDto;
 import com.penzasoft.uldbs.model.Catalog;
 import com.penzasoft.uldbs.model.Chat;
 import com.penzasoft.uldbs.model.Feedback;
@@ -58,15 +58,15 @@ public class GoodFacade {
                .getResultList();
     }
     
-    public FullGoodInfo getFullInfoForGood(UUID goodUuid, int feedback_limit, int feedback_offset){
-        FullGoodInfo result = new FullGoodInfo();
+    public FullGoodInfoDto getFullInfoForGood(UUID goodUuid, int feedback_limit, int feedback_offset){
+        FullGoodInfoDto result = new FullGoodInfoDto();
         Good g = entityManager
                 .createQuery("SELECT gg FROM Good gg WHERE gg.uuid = :idd", Good.class)
                 .setParameter("idd", goodUuid )
                 .getSingleResult();
         result.setGood(g);
         List<Feedback> feedbacks = entityManager
-                .createQuery("SELECT ff FROM Feedback ff WHERE ff.goodUuid.uuid = :idd", Feedback.class)
+                .createQuery("SELECT ff FROM Feedback ff WHERE ff.good.uuid = :idd", Feedback.class)
                 .setMaxResults(feedback_limit - feedback_offset)
                 .setFirstResult(feedback_offset)
                 .setParameter("idd", goodUuid )
@@ -78,7 +78,7 @@ public class GoodFacade {
     public Boolean createGood(Good good, UUID catalog){
         try{
             good.setUuid(UUID.randomUUID());
-            good.setCatalogUuid(new Catalog(catalog));
+            good.setCatalog(new Catalog(catalog));
             entityManager.persist(good);
             entityManager.flush();
             return true;

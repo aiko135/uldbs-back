@@ -5,7 +5,7 @@
  */
 package com.penzasoft.uldbs.service;
 
-import com.penzasoft.uldbs.dto.FullGoodInfo;
+import com.penzasoft.uldbs.dto.FullGoodInfoDto;
 import com.penzasoft.uldbs.facade.GoodFacade;
 import com.penzasoft.uldbs.model.Good;
 import java.util.List;
@@ -55,7 +55,7 @@ public class GoodService {
     @GET
     @Path("getFullInfoForGood/{good}")
     @Produces({MediaType.APPLICATION_JSON})
-     public FullGoodInfo getFullGoodInfo(@PathParam("good") UUID good){
+     public FullGoodInfoDto getFullGoodInfo(@PathParam("good") UUID good){
         return goodFacade.getFullInfoForGood(good, 50, 0);
     }
      

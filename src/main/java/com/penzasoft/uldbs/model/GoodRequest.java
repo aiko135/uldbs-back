@@ -48,14 +48,14 @@ public class GoodRequest extends AbstractEntity implements Serializable {
     @JsonbTypeAdapter(UuidJsonConverter.class)
     @Convert("uuidConverter")
     private UUID uuid;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goodRequestUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goodRequest")
     private List<ParametrValue> parametrValueList;
     @JoinColumn(name = "good_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private Good goodUuid;
+    private Good good;
     @JoinColumn(name = "request_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private Request requestUuid;
+    private Request request;
 
     public GoodRequest() {
     }
@@ -81,26 +81,26 @@ public class GoodRequest extends AbstractEntity implements Serializable {
         this.parametrValueList = parametrValueList;
     }
 
-    public String getGoodUuid() {
-        if(goodUuid == null)
+    public Good getGood() {
+//        if(good == null)
+//            return "null";
+//        else
+            return good;
+    }
+
+    public void setGood(Good goodUuid) {
+        this.good = goodUuid;
+    }
+
+    public String getRequest() {
+        if(request == null)
             return "null";
         else
-            return goodUuid.getUuid().toString();
+            return request.getUuid().toString();
     }
 
-    public void setGoodUuid(Good goodUuid) {
-        this.goodUuid = goodUuid;
-    }
-
-    public String getRequestUuid() {
-        if(requestUuid == null)
-            return "null";
-        else
-            return requestUuid.getUuid().toString();
-    }
-
-    public void setRequestUuid(Request requestUuid) {
-        this.requestUuid = requestUuid;
+    public void setRequest(Request requestUuid) {
+        this.request = requestUuid;
     }
 
     @Override

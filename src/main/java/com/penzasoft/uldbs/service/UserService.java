@@ -5,8 +5,8 @@
  */
 package com.penzasoft.uldbs.service;
 
-import com.penzasoft.uldbs.dto.LoginResult;
-import com.penzasoft.uldbs.dto.RegisterResult;
+import com.penzasoft.uldbs.dto.LoginResultDto;
+import com.penzasoft.uldbs.dto.RegisterResultDto;
 import com.penzasoft.uldbs.facade.UserFacade;
 import com.penzasoft.uldbs.model.User;
 import java.util.List;
@@ -34,7 +34,7 @@ public class UserService {
     @POST
     @Path("doLogin")
     @Produces({MediaType.APPLICATION_JSON})
-    public LoginResult doLogin(
+    public LoginResultDto doLogin(
             @HeaderParam("login") String login,
             @HeaderParam("pass") String password ){
         
@@ -45,7 +45,7 @@ public class UserService {
     @Path("register")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public RegisterResult register(User regdata){
+    public RegisterResultDto register(User regdata){
         return userFacade.register(regdata);
     }
     

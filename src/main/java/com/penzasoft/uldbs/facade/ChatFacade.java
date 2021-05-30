@@ -24,14 +24,14 @@ public class ChatFacade {
     
     public List<Chat> getChatsByClientId(UUID clientId){
         return entityManager
-                .createQuery("SELECT ch FROM Chat ch WHERE ch.clientUuid.uuid = :cl_id", Chat.class)
+                .createQuery("SELECT ch FROM Chat ch WHERE ch.client.uuid = :cl_id", Chat.class)
                 .setParameter("cl_id", clientId)
                 .getResultList();
     }
     
     public List<Chat> getChatsByManagerId(UUID managerId){
          return entityManager
-                .createQuery("SELECT ch FROM Chat ch WHERE ch.managerUuid.uuid = :mn_id", Chat.class)
+                .createQuery("SELECT ch FROM Chat ch WHERE ch.manager.uuid = :mn_id", Chat.class)
                 .setParameter("mn_id", managerId)
                 .getResultList();
     }

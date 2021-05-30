@@ -11,15 +11,15 @@ import com.penzasoft.uldbs.model.User;
  *
  * @author ktepin
  */
-public class RegisterResult {
+public class RegisterResultDto {
     private Boolean result;
     private String message;
     private User createdAccount;
 
-    public RegisterResult() {
+    public RegisterResultDto() {
     }
 
-    public RegisterResult(Boolean result, String message, User createdAccount) {
+    public RegisterResultDto(Boolean result, String message, User createdAccount) {
         this.result = result;
         this.message = message;
         this.createdAccount = createdAccount;

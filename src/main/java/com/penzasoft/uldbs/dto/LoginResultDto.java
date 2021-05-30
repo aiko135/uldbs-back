@@ -11,14 +11,14 @@ import com.penzasoft.uldbs.model.User;
  *
  * @author ktepin
  */
-public class LoginResult {
+public class LoginResultDto {
     
     private Boolean result;
     private String error;
     private String token;
     private User user;
 
-    public LoginResult(Boolean result, String error, String token, User user) {
+    public LoginResultDto(Boolean result, String error, String token, User user) {
         this.result = result;
         this.error = error;
         this.token = token;
