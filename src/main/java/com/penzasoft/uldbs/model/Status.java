@@ -58,6 +58,17 @@ public class Status extends AbstractEntity implements Serializable {
     @NotNull
     @Column(name = "is_terminal")
     private short isTerminal;
+    @NotNull
+    @Column(name = "is_initial")
+    private short isInitial;
+
+    public short getIsInitial() {
+        return isInitial;
+    }
+
+    public void setIsInitial(short isInitial) {
+        this.isInitial = isInitial;
+    }
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "status")
     private List<StatusHistory> statusHistoryList;

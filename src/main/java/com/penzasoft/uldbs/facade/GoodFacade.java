@@ -66,7 +66,7 @@ public class GoodFacade {
                 .getSingleResult();
         result.setGood(g);
         List<Feedback> feedbacks = entityManager
-                .createQuery("SELECT ff FROM Feedback ff WHERE ff.goodUuid.uuid = :idd", Feedback.class)
+                .createQuery("SELECT ff FROM Feedback ff WHERE ff.good.uuid = :idd", Feedback.class)
                 .setMaxResults(feedback_limit - feedback_offset)
                 .setFirstResult(feedback_offset)
                 .setParameter("idd", goodUuid )

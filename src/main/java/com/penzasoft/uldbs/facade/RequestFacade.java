@@ -6,8 +6,12 @@
 package com.penzasoft.uldbs.facade;
 
 import com.penzasoft.uldbs.dto.UsersRequest;
+import com.penzasoft.uldbs.model.GoodRequest;
 import com.penzasoft.uldbs.model.Request;
+import com.penzasoft.uldbs.model.Status;
+import com.penzasoft.uldbs.model.StatusHistory;
 import com.penzasoft.uldbs.model.User;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -38,6 +42,9 @@ public class RequestFacade {
     
     public Boolean postRequest(UsersRequest request){
         try{
+            if(request.getGoods().size() < 1)
+                return false;
+            //Request creation
             Request new_req = new Request();
             new_req.setUuid(UUID.randomUUID());
             
@@ -55,9 +62,36 @@ public class RequestFacade {
             );
             q.setParameter(1, MANAGER_ROLE_CODE);
             q.setParameter(2, FINAL_STATUS_UUID);
-           
             String freeManagerUuid = q.getSingleResult().toString();
-             int i = 0;      
+            User m = entityManager.find(User.class, UUID.fromString(freeManagerUuid));
+            new_req.setManager(m);
+            
+            entityManager.persist(new_req);
+            entityManager.flush();
+            //---------------
+                    
+            //Request history create
+            StatusHistory history = new StatusHistory();
+            history.setUuid(UUID.randomUUID());
+            history.setRequest(new_req);
+            
+            Status initStatus = entityManager.createQuery("SELECT st FROM Status st WHERE st.isInitial = 1",Status.class).getSingleResult();
+            history.setStatus(initStatus);
+            
+            history.setSetupTimestamp(new Date());
+            entityManager.persist(history);
+            entityManager.flush();
+            
+            //GOOD REQUEST
+            for(int i = 0; i<request.getGoods().size(); i++){
+                GoodRequest gr = new GoodRequest();
+                gr.setUuid(UUID.randomUUID());
+                gr.setRequest(new_req);
+                gr.setGood(request.getGoods().get(i));
+                entityManager.persist(gr);
+                entityManager.flush();
+            }
+     
             return true;
         }
             catch(Exception e){
@@ -70,7 +104,7 @@ public class RequestFacade {
     public List<Request> getAllUnfinishedRequests(){
           return entityManager
                 .createQuery("SELECT rr FROM Request rr WHERE ( "
-                        + "(SELECT count(sh) FROM StatusHistory sh WHERE  sh.requestUuid.uuid = rr.uuid AND sh.statusUuid.uuid = :fs_uuid)"
+                        + "(SELECT count(sh) FROM StatusHistory sh WHERE  sh.request.uuid = rr.uuid AND sh.status.uuid = :fs_uuid)"
                         + "= 0)", Request.class)
                 .setParameter("fs_uuid", UUID.fromString(FINAL_STATUS_UUID))
                 .getResultList();
@@ -78,8 +112,8 @@ public class RequestFacade {
     
     public List<Request> getAllUnfinishedRequestsForManager(UUID managerUuid){
           return entityManager
-                .createQuery("SELECT rr FROM Request rr WHERE rr.managerUuid.uuid = :mn_uuid AND ( "
-                        + "(SELECT count(sh) FROM StatusHistory sh WHERE  sh.requestUuid.uuid = rr.uuid AND sh.statusUuid.uuid = :fs_uuid)"
+                .createQuery("SELECT rr FROM Request rr WHERE rr.manager.uuid = :mn_uuid AND ( "
+                        + "(SELECT count(sh) FROM StatusHistory sh WHERE  sh.request.uuid = rr.uuid AND sh.status.uuid = :fs_uuid)"
                         + "= 0)", Request.class)
                 .setParameter("mn_uuid", managerUuid)
                 .setParameter("fs_uuid", UUID.fromString(FINAL_STATUS_UUID))
