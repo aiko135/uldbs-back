@@ -62,10 +62,10 @@ public class Message extends AbstractEntity implements Serializable {
     private Date timestamp;
     @JoinColumn(name = "chat_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private Chat chatUuid;
+    private Chat chat;
     @JoinColumn(name = "user_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private User userUuid;
+    private User user;
 
     public Message() {
     }
@@ -104,26 +104,26 @@ public class Message extends AbstractEntity implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public String getChatUuid() {
-        if(chatUuid == null)
+    public String getChat() {
+        if(chat == null)
             return "null";
         else
-            return chatUuid.getUuid().toString();
+            return chat.getUuid().toString();
     }
 
-    public void setChatUuid(Chat chatUuid) {
-        this.chatUuid = chatUuid;
+    public void setChat(Chat chatUuid) {
+        this.chat = chatUuid;
     }
 
-    public String getUserUuid() {
-        if(userUuid == null)
+    public String getUser() {
+        if(user == null)
             return "null";
         else
-            return userUuid.getUuid().toString();
+            return user.getUuid().toString();
     }
 
-    public void setUserUuid(User userUuid) {
-        this.userUuid = userUuid;
+    public void setUser(User userUuid) {
+        this.user = userUuid;
     }
 
     @Override

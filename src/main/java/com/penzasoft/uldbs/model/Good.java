@@ -74,15 +74,15 @@ public class Good extends AbstractEntity implements Serializable {
     @Size(max = 512)
     @Column(name = "img_path")
     private String imgPath;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goodUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "good")
     private List<Feedback> feedbackList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "goodUuid")
     private List<Parametr> parametrList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goodUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "good")
     private List<GoodRequest> goodRequestList;
     @JoinColumn(name = "catalog_uuid", referencedColumnName = "uuid")
     @ManyToOne
-    private Catalog catalogUuid;
+    private Catalog catalog;
 
     public Good() {
     }
@@ -169,15 +169,15 @@ public class Good extends AbstractEntity implements Serializable {
         this.goodRequestList = goodRequestList;
     }
 
-    public String getCatalogUuid() {
-        if(catalogUuid == null)
+    public String getCatalog() {
+        if(catalog == null)
             return "null";
         else
-            return  catalogUuid.getUuid().toString();     
+            return  catalog.getUuid().toString();     
     }
 
-    public void setCatalogUuid(Catalog catalogUuid) {
-        this.catalogUuid = catalogUuid;
+    public void setCatalog(Catalog catalogUuid) {
+        this.catalog = catalogUuid;
     }
 
     @Override

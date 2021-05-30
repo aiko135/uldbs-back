@@ -32,6 +32,7 @@ CREATE TABLE public.message (
 CREATE TABLE public.status (
 	uuid uuid NOT NULL,
 	"name" varchar(64) NOT NULL,
+	"is_terminal" smallint NOT NULL default 0,
 	CONSTRAINT status_pk PRIMARY KEY (uuid)
 );
 

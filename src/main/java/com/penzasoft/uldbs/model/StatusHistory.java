@@ -59,10 +59,10 @@ public class StatusHistory extends AbstractEntity implements Serializable {
     private String comment;
     @JoinColumn(name = "request_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private Request requestUuid;
+    private Request request;
     @JoinColumn(name = "status_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private Status statusUuid;
+    private Status status;
 
     public StatusHistory() {
     }
@@ -100,26 +100,26 @@ public class StatusHistory extends AbstractEntity implements Serializable {
         this.comment = comment;
     }
 
-    public String getRequestUuid() {
-        if(requestUuid == null)
+    public String getRequest() {
+        if(request == null)
             return "null";
         else
-            return requestUuid.getUuid().toString();
+            return request.getUuid().toString();
     }
 
-    public void setRequestUuid(Request requestUuid) {
-        this.requestUuid = requestUuid;
+    public void setRequest(Request requestUuid) {
+        this.request = requestUuid;
     }
 
-    public String getStatusUuid() {
-        if(statusUuid == null)
+    public String getStatus() {
+        if(status == null)
             return "null";
         else
-            return statusUuid.getUuid().toString();
+            return status.getUuid().toString();
     }
 
-    public void setStatusUuid(Status statusUuid) {
-        this.statusUuid = statusUuid;
+    public void setStatus(Status statusUuid) {
+        this.status = statusUuid;
     }
 
     @Override

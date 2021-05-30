@@ -88,7 +88,7 @@ public class User extends AbstractEntity implements Serializable {
     private List<Request> requestList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "managerUuid")
     private List<Request> requestList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientUuid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
     private List<Chat> chatList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "managerUuid")
     private List<Chat> chatList1;

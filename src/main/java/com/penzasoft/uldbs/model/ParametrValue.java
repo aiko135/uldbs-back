@@ -53,10 +53,10 @@ public class ParametrValue extends AbstractEntity implements Serializable {
     private String value;
     @JoinColumn(name = "good_request_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private GoodRequest goodRequestUuid;
+    private GoodRequest goodRequest;
     @JoinColumn(name = "parametr_uuid", referencedColumnName = "uuid")
     @ManyToOne(optional = false)
-    private Parametr parametrUuid;
+    private Parametr parametr;
 
     public ParametrValue() {
     }
@@ -86,26 +86,26 @@ public class ParametrValue extends AbstractEntity implements Serializable {
         this.value = value;
     }
 
-    public String getGoodRequestUuid() {
-        if(goodRequestUuid == null)
+    public String getGoodRequest() {
+        if(goodRequest == null)
             return "null";
         else
-            return goodRequestUuid.getUuid().toString();
+            return goodRequest.getUuid().toString();
     }
 
-    public void setGoodRequestUuid(GoodRequest goodRequestUuid) {
-        this.goodRequestUuid = goodRequestUuid;
+    public void setGoodRequest(GoodRequest goodRequestUuid) {
+        this.goodRequest = goodRequestUuid;
     }
 
-    public String getParametrUuid() {
-        if(parametrUuid == null)
+    public String getParametr() {
+        if(parametr == null)
             return "null";
         else
-            return parametrUuid.getUuid().toString();
+            return parametr.getUuid().toString();
     }
 
-    public void setParametrUuid(Parametr parametrUuid) {
-        this.parametrUuid = parametrUuid;
+    public void setParametr(Parametr parametrUuid) {
+        this.parametr = parametrUuid;
     }
 
     @Override
