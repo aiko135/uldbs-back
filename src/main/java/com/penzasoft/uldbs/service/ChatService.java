@@ -41,4 +41,20 @@ public class ChatService {
     public List<Chat> getChatsByManagerId(@HeaderParam("manager") UUID managerId){
         return chatFacade.getChatsByManagerId(managerId);
     }
+    
+    @GET
+    @Path("createChat")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Boolean createChat(
+            @HeaderParam("client") UUID client,
+            @HeaderParam("manager") UUID manager){
+        return chatFacade.createChat(client, manager);
+    }
+    
+    @GET
+    @Path("autoCreateChat")
+     @Produces({MediaType.APPLICATION_JSON})
+    public Boolean autoCreateChat(@HeaderParam("client") UUID client){
+        return chatFacade.createChatWithRandomManager(client);
+    }
 }

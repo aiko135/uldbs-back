@@ -12,6 +12,8 @@ import com.penzasoft.uldbs.model.Request;
 import com.penzasoft.uldbs.model.Status;
 import com.penzasoft.uldbs.model.StatusHistory;
 import com.penzasoft.uldbs.model.User;
+import static com.penzasoft.uldbs.util.Settings.FINAL_STATUS_UUID;
+import static com.penzasoft.uldbs.util.Settings.MANAGER_ROLE_CODE;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -33,10 +35,7 @@ public class RequestFacade {
     @PersistenceContext(unitName = "testPU")
     private EntityManager entityManager;
     
-    private static final Logger logger = Logger.getLogger(MessageFacade.class.getName());
-    
-    private static String FINAL_STATUS_UUID = "ad631ed1-a650-4f9c-bfa1-70b84c6f0d10";
-    private static Integer MANAGER_ROLE_CODE = 2;
+    private static final Logger logger = Logger.getLogger(RequestFacade.class.getName());
     
     private UUID getUuidOfFinalStatus(){
         return UUID.fromString(FINAL_STATUS_UUID);
