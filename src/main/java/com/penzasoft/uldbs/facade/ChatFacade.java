@@ -46,6 +46,15 @@ public class ChatFacade {
     
     public Boolean createChat(UUID userId, UUID managerId){
         try{
+            // Поиск дубликатов. Если чат уже есть то мы не можем создать новый
+            List<Chat> chats = entityManager
+                    .createQuery("SELECT ch FROM Chat ch WHERE ch.manager.uuid = :mn_id AND ch.client.uuid = :cl_id",Chat.class)
+                    .setParameter("mn_id", managerId)
+                    .setParameter("cl_id", userId)
+                    .getResultList();
+            if(!chats.isEmpty())
+                return false;
+            
             User client = entityManager.find(User.class, userId);
             User manager = entityManager.find(User.class, managerId);
             if(client == null || manager == null)
@@ -72,24 +81,17 @@ public class ChatFacade {
             if(chats.size() > 0) 
                 return false; //У пользователя уже есть чаты
             
-            User client = entityManager.find(User.class, userId);
+           
             Query q = entityManager.createNativeQuery(
             "select * from getfreemanager(?::integer,?::uuid);"
             );
             q.setParameter(1, MANAGER_ROLE_CODE);
             q.setParameter(2, FINAL_STATUS_UUID);
             String freeManagerUuid = q.getSingleResult().toString();
-            User manager = entityManager.find(User.class, UUID.fromString(freeManagerUuid));
-            if(client == null || manager == null)
-               return false; 
-            
-            Chat newChat = new Chat();
-            newChat.setUuid(UUID.randomUUID());
-            newChat.setClient(client);
-            newChat.setManager(manager);
-            entityManager.persist(newChat);
-            entityManager.flush();
-            return true;
+            if(freeManagerUuid != null)
+                return createChat(userId,UUID.fromString(freeManagerUuid));
+            else
+                return false;
         }
             catch(Exception e){
             //result.setMessage(result.getMessage()+": "+e.getMessage());
@@ -97,4 +99,6 @@ public class ChatFacade {
             return false;
         }
     }
+    
+    
 }

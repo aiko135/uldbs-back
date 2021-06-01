@@ -42,7 +42,7 @@ public class MessageFacade {
             UUID uuid = UUID.randomUUID();
             m.setUuid(uuid);
             m.setText(text);
-            m.setTimestamp(new Date(0));
+            m.setTimestamp(new Date());
         
             User u = new User();
             u.setUuid(userid);
