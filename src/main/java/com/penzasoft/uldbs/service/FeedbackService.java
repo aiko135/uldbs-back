@@ -31,10 +31,10 @@ public class FeedbackService {
     private FeedbackFacade feedbackFacade;
     
     @POST
-    @Path("addFeedback")
+    @Path("postFeedback")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Boolean addFeedback(
+    public Boolean postFeedback(
          @HeaderParam("user") UUID user,
          @HeaderParam("good") UUID good,
              Feedback feedback){

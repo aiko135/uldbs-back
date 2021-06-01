@@ -38,10 +38,10 @@ public class MessageService {
     @POST
     @Path("postMessage")
     @Produces({MediaType.APPLICATION_JSON})
-    public Boolean postMessage(
+    public List<Message> postMessage(
             @HeaderParam("userid") UUID userid,
             @HeaderParam("chatid") UUID chatid,
-            @HeaderParam("text") String text){
+            String text){
        return messageFacade.postMessage(userid, chatid, text);
     }
 }

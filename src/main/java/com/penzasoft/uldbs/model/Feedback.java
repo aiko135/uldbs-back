@@ -129,7 +129,10 @@ public class Feedback extends AbstractEntity implements Serializable {
     }
 
     public User getUser() {
-        return user;
+        User u = new User();
+        u.setUuid(UUID.randomUUID());
+        u.setName(user.getName());
+        return u;
     }
 
     public void setUser(User userUuid) {

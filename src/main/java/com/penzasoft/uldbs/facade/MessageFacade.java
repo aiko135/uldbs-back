@@ -36,15 +36,12 @@ public class MessageFacade {
                 .getResultList();
     }
     
-    public Boolean postMessage(UUID userid, UUID chatid, String text){
+    public List<Message> postMessage(UUID userid, UUID chatid, String text){
         try{      
             User u = entityManager.find(User.class, userid);
             Chat c = entityManager.find(Chat.class, chatid);
             
-            if(u == null || c == null){
-                return false;
-            }
-            else{
+            if(u != null && c != null){
                 Message m = new Message();
                 m.setUuid(UUID.randomUUID());
                 m.setText(text);
@@ -53,13 +50,14 @@ public class MessageFacade {
                 m.setChat(c);
                 entityManager.persist(m);
                 entityManager.flush();
-                return true;
+             
             }
+            return getMessagesForChat(chatid);
         }
         catch(Exception e){
             //result.setMessage(result.getMessage()+": "+e.getMessage());
             logger.log(Level.SEVERE, e.getMessage(),e);
-            return false;
+            return null;
         }
         
     }
