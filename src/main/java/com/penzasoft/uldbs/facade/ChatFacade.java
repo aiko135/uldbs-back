@@ -6,11 +6,17 @@
 package com.penzasoft.uldbs.facade;
 
 import com.penzasoft.uldbs.model.Chat;
+import com.penzasoft.uldbs.model.User;
+import static com.penzasoft.uldbs.util.Settings.FINAL_STATUS_UUID;
+import static com.penzasoft.uldbs.util.Settings.MANAGER_ROLE_CODE;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -18,7 +24,9 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ChatFacade {
-   
+    
+     private static final Logger logger = Logger.getLogger(ChatFacade.class.getName());
+    
     @PersistenceContext(unitName = "testPU")
     private EntityManager entityManager;
     
@@ -35,4 +43,62 @@ public class ChatFacade {
                 .setParameter("mn_id", managerId)
                 .getResultList();
     }
+    
+    public Boolean createChat(UUID userId, UUID managerId){
+        try{
+            // Поиск дубликатов. Если чат уже есть то мы не можем создать новый
+            List<Chat> chats = entityManager
+                    .createQuery("SELECT ch FROM Chat ch WHERE ch.manager.uuid = :mn_id AND ch.client.uuid = :cl_id",Chat.class)
+                    .setParameter("mn_id", managerId)
+                    .setParameter("cl_id", userId)
+                    .getResultList();
+            if(!chats.isEmpty())
+                return false;
+            
+            User client = entityManager.find(User.class, userId);
+            User manager = entityManager.find(User.class, managerId);
+            if(client == null || manager == null)
+               return false; 
+            
+            Chat newChat = new Chat();
+            newChat.setUuid(UUID.randomUUID());
+            newChat.setClient(client);
+            newChat.setManager(manager);
+            entityManager.persist(newChat);
+            entityManager.flush();
+            return true;
+        }
+            catch(Exception e){
+            //result.setMessage(result.getMessage()+": "+e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage(),e);
+            return false;
+        }
+    }
+    
+    public Boolean createChatWithRandomManager(UUID userId){
+        try{
+            List<Chat> chats = getChatsByClientId(userId);
+            if(chats.size() > 0) 
+                return false; //У пользователя уже есть чаты
+            
+           
+            Query q = entityManager.createNativeQuery(
+            "select * from getfreemanager(?::integer,?::uuid);"
+            );
+            q.setParameter(1, MANAGER_ROLE_CODE);
+            q.setParameter(2, FINAL_STATUS_UUID);
+            String freeManagerUuid = q.getSingleResult().toString();
+            if(freeManagerUuid != null)
+                return createChat(userId,UUID.fromString(freeManagerUuid));
+            else
+                return false;
+        }
+            catch(Exception e){
+            //result.setMessage(result.getMessage()+": "+e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage(),e);
+            return false;
+        }
+    }
+    
+    
 }
