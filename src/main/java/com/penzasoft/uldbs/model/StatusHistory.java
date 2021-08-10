@@ -5,6 +5,7 @@
  */
 package com.penzasoft.uldbs.model;
 
+import com.penzasoft.uldbs.util.DateJsonAdapter;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
 import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
@@ -52,6 +53,7 @@ public class StatusHistory extends AbstractEntity implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "setup_timestamp")
+    @JsonbTypeAdapter(DateJsonAdapter.class)
     @Temporal(TemporalType.TIMESTAMP)
     private Date setupTimestamp;
     @Size(max = 2147483647)

@@ -8,11 +8,14 @@ package com.penzasoft.uldbs.service;
 import com.penzasoft.uldbs.facade.RequestFacade;
 import com.penzasoft.uldbs.facade.StatusHistoryFacade;
 import com.penzasoft.uldbs.model.Good;
+import com.penzasoft.uldbs.model.Status;
 import com.penzasoft.uldbs.model.StatusHistory;
+import java.util.List;
 import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -38,5 +41,11 @@ public class StatusHistoryService {
             @HeaderParam("message") String message){
         return shFacade.createStatusHistory(request, status, message);
     }
-     
+    
+    @GET
+    @Path("getAllStatus")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Status> getAllStatus(){
+        return shFacade.getAllStatus();
+    }
 }

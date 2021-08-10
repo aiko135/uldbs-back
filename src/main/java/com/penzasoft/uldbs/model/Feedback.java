@@ -6,6 +6,7 @@
 package com.penzasoft.uldbs.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.penzasoft.uldbs.util.DateJsonAdapter;
 import com.penzasoft.uldbs.util.UuidJsonConverter;
 import com.penzasoft.uldbs.util.UuidPgConverter;
 import java.io.Serializable;
@@ -63,6 +64,7 @@ public class Feedback extends AbstractEntity implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "timestamp")
+    @JsonbTypeAdapter(DateJsonAdapter.class)
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
     @JoinColumn(name = "good_uuid", referencedColumnName = "uuid")

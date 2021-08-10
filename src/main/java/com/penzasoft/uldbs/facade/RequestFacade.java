@@ -103,10 +103,10 @@ public class RequestFacade {
         }
     }
     
-    public List<MyRequestDto> getMyRequests(UUID user){
+    public List<MyRequestDto> getClientRequests(UUID client){
         List<Request> myReqs = entityManager
                .createQuery("SELECT rr FROM Request rr WHERE rr.client.uuid = :clientUuid", Request.class)
-               .setParameter("clientUuid", user)
+               .setParameter("clientUuid", client)
                .getResultList();
         
         ArrayList<MyRequestDto> dtoList = new ArrayList<MyRequestDto>();
@@ -117,11 +117,36 @@ public class RequestFacade {
                     
             dto.setRequestUuid( old.getUuid() );
             dto.setStatusHistoryList( old.getStatusHistoryList() );
-            dto.setManagerUuid(old.getManager().getUuid());
-            dto.setManagerPhone(old.getManager().getPhone());
-            dto.setManagerEmail(old.getManager().getEmail());
+            dto.setContactorUuid(old.getManager().getUuid());
+            dto.setContactorPhone(old.getManager().getPhone());
+            dto.setContactorEmail(old.getManager().getEmail());
             dto.setGoodRequestList(old.getGoodRequestList());
-            dto.setManagerName(old.getManager().getName());
+            dto.setContactorName(old.getManager().getName());
+            
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+    
+     public List<MyRequestDto> getManagerRequests(UUID manager){
+        List<Request> myReqs = entityManager
+               .createQuery("SELECT rr FROM Request rr WHERE rr.manager.uuid = :mUuid", Request.class)
+               .setParameter("mUuid", manager)
+               .getResultList();
+        
+        ArrayList<MyRequestDto> dtoList = new ArrayList<MyRequestDto>();
+        
+        for(int i=0; i<myReqs.size(); i++){
+            MyRequestDto dto = new MyRequestDto();
+            Request old = myReqs.get(i);
+                    
+            dto.setRequestUuid( old.getUuid() );
+            dto.setStatusHistoryList( old.getStatusHistoryList() );
+            dto.setContactorUuid(old.getClient().getUuid());
+            dto.setContactorPhone(old.getClient().getPhone());
+            dto.setContactorEmail(old.getClient().getEmail());
+            dto.setGoodRequestList(old.getGoodRequestList());
+            dto.setContactorName(old.getClient().getName());
             
             dtoList.add(dto);
         }

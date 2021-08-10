@@ -21,29 +21,26 @@ public class MyRequestDto {
     @JsonbTypeAdapter(UuidJsonConverter.class)
     private UUID requestUuid;
      @JsonbTypeAdapter(UuidJsonConverter.class)
-    private UUID managerUuid;
-    private String managerName;
-    private String managerEmail;
-    private String managerPhone;
+    private UUID contactorUuid;
+    private String contactorName;
+    private String contactorEmail;
+    private String contactorPhone;
     private List<GoodRequest> goodRequestList;
     private List<StatusHistory> statusHistoryList;
 
     public MyRequestDto() {
     }
 
-    public MyRequestDto(UUID requestUuid, UUID managerUuid, String managerName, String managerEmail, String managerPhone, List<GoodRequest> goodRequestList, List<StatusHistory> statusHistoryList) {
+    public MyRequestDto(UUID requestUuid, UUID contactorUuid, String contactorName, String contactorEmail, String contactorPhone, List<GoodRequest> goodRequestList, List<StatusHistory> statusHistoryList) {
         this.requestUuid = requestUuid;
-        this.managerUuid = managerUuid;
-        this.managerName = managerName;
-        this.managerEmail = managerEmail;
-        this.managerPhone = managerPhone;
+        this.contactorUuid = contactorUuid;
+        this.contactorName = contactorName;
+        this.contactorEmail = contactorEmail;
+        this.contactorPhone = contactorPhone;
         this.goodRequestList = goodRequestList;
         this.statusHistoryList = statusHistoryList;
     }
 
-
-
-    
     public UUID getRequestUuid() {
         return requestUuid;
     }
@@ -52,28 +49,36 @@ public class MyRequestDto {
         this.requestUuid = requestUuid;
     }
 
-    public UUID getManagerUuid() {
-        return managerUuid;
+    public UUID getContactorUuid() {
+        return contactorUuid;
     }
 
-    public void setManagerUuid(UUID managerUuid) {
-        this.managerUuid = managerUuid;
+    public void setContactorUuid(UUID contactorUuid) {
+        this.contactorUuid = contactorUuid;
     }
 
-    public String getManagerEmail() {
-        return managerEmail;
+    public String getContactorName() {
+        return contactorName;
     }
 
-    public void setManagerEmail(String managerEmail) {
-        this.managerEmail = managerEmail;
+    public void setContactorName(String contactorName) {
+        this.contactorName = contactorName;
     }
 
-    public String getManagerPhone() {
-        return managerPhone;
+    public String getContactorEmail() {
+        return contactorEmail;
     }
 
-    public void setManagerPhone(String managerPhone) {
-        this.managerPhone = managerPhone;
+    public void setContactorEmail(String contactorEmail) {
+        this.contactorEmail = contactorEmail;
+    }
+
+    public String getContactorPhone() {
+        return contactorPhone;
+    }
+
+    public void setContactorPhone(String contactorPhone) {
+        this.contactorPhone = contactorPhone;
     }
 
     public List<GoodRequest> getGoodRequestList() {
@@ -91,15 +96,7 @@ public class MyRequestDto {
     public void setStatusHistoryList(List<StatusHistory> statusHistoryList) {
         this.statusHistoryList = statusHistoryList;
     }
-
-    public String getManagerName() {
-        return managerName;
-    }
-
-    public void setManagerName(String managerName) {
-        this.managerName = managerName;
-    }
-    
+ 
     
     
 }

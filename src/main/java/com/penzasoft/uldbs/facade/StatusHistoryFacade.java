@@ -10,6 +10,7 @@ import com.penzasoft.uldbs.model.Request;
 import com.penzasoft.uldbs.model.Status;
 import com.penzasoft.uldbs.model.StatusHistory;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,13 +29,18 @@ public class StatusHistoryFacade {
     
     private static final Logger logger = Logger.getLogger(StatusHistoryFacade.class.getName());
     
-    public Boolean createStatusHistory(UUID request, UUID status, String message){
+    public Boolean createStatusHistory(UUID requestId, UUID statusId, String message){
         try{
+            Request rq = entityManager.find(Request.class, requestId);
+            Status st = entityManager.find(Status.class,statusId);
+            if(rq == null || st == null)
+                return false;
+            
             StatusHistory sh = new StatusHistory();
             sh.setUuid(UUID.randomUUID());
             sh.setSetupTimestamp(new Date());
-            sh.setRequest(new Request(request));
-            sh.setStatus(new Status(status));
+            sh.setRequest(rq);
+            sh.setStatus(st);
             if(!(message.equals("null")))
                 sh.setComment(message);
             entityManager.persist(sh);
@@ -46,5 +52,11 @@ public class StatusHistoryFacade {
             logger.log(Level.SEVERE, e.getMessage(),e);
             return false;
         }
+    }
+    
+    public List<Status> getAllStatus(){
+        return entityManager
+                .createQuery("SELECT st FROM Status st", Status.class)
+                .getResultList();
     }
 }

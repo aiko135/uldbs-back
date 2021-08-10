@@ -41,10 +41,17 @@ public class RequestService {
     }
     
     @GET
-    @Path("myRequests/{user}")
+    @Path("clientRequests/{user}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<MyRequestDto> getMyRequests(@PathParam("user") UUID user){
-        return requestFacade.getMyRequests(user);
+    public List<MyRequestDto> getClientRequests(@PathParam("user") UUID user){
+        return requestFacade.getClientRequests(user);
+    }
+    
+    @GET
+    @Path("managerRequests/{user}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<MyRequestDto> getManagerRequests(@PathParam("user") UUID user){
+        return requestFacade.getManagerRequests(user);
     }
     
     @GET
