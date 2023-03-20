@@ -9,4 +9,15 @@ public class Main{
   public String echo() {
     return "Reqeust works!";
   }
+  
+  @GET
+  @Path("test")
+  public String test() {
+    testCryptoLib();
+    return "Crypto lib tested. See server logs for details";
+  }
+  
+  private void testCryptoLib(){
+      System.out.println("Starting cryptolib check");
+  }
 }
